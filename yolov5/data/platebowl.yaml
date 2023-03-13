@@ -1,0 +1,11 @@
+path: ../datasets/platebowl
+train: train/images
+val: train/images
+
+nc: 5
+names:
+  0: Bowl
+  1: Burger
+  2: Fries
+  3: Glass
+  4: Plate
