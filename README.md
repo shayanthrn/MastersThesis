@@ -12,3 +12,6 @@ https://drive.google.com/file/d/1Qq6NY-RgpHZvylaJb2sVMIiDA6dkUr_d/view?usp=shari
 
 # food101-dataset
 https://data.vision.ee.ethz.ch/cvl/food-101.tar.gz
+
+# source resnet50 
+https://github.com/Herick-Asmani/Food-101-classification-using-ResNet-50

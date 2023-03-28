@@ -1,34 +1,10 @@
 import torch
 from torch import nn
 from torchvision import datasets, transforms, models
-from torchvision.utils import save_image
-import numpy as np
 from PIL import Image
 
-
-from collections import defaultdict
-import os
-from shutil import copy
-def prepare_data(filepath, src, dest):
-  classes_images = defaultdict(list)
-  with open(filepath, 'r') as txt:
-      paths = [read.strip() for read in txt.readlines()]
-      for p in paths:
-        food = p.split('/')
-        classes_images[food[0]].append(food[1] + '.jpg')
-
-  for food in classes_images.keys():
-    print("\nCopying images into ",food)
-    if not os.path.exists(os.path.join(dest,food)):
-      os.makedirs(os.path.join(dest,food))
-    for i in classes_images[food]:
-      copy(os.path.join(src,food,i), os.path.join(dest,food,i))
-  print("Copying Done!")
-
-# print("Creating train data...")
-# prepare_data('../datasets/food-101/meta/train.txt', '../datasets/food-101/images', '../datasets/food-101/train')
-# print("Creating test data...")
-# prepare_data('../datasets/food-101/meta/test.txt', '../datasets/food-101/images', '../datasets/food-101/test')
+import warnings
+warnings.filterwarnings("ignore")
 
 
 checkpoint = torch.load("./resnet50model.pth", map_location='cpu')
@@ -45,10 +21,6 @@ with open('../datasets/food-101/meta/classes.txt', 'r') as txt:
 model.cuda()
 model.eval()
 
-# track test loss
-test_loss = 0.0
-class_correct = list(0. for i in range(len(classes)))
-class_total = list(0. for i in range(len(classes)))
 test_transforms = transforms.Compose([transforms.Resize(256),
                                       transforms.TenCrop(224),
                                       transforms.Lambda(lambda crops: torch.stack([transforms.ToTensor()(crop) for crop in crops])),
